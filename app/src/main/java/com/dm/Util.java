@@ -21,7 +21,7 @@ public class Util {
         return bs;
     }
 
-    public List<Message> readJsonStream(InputStream in) throws IOException {
+    public static List<Message> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
             return readMessagesArray(reader);
@@ -30,7 +30,7 @@ public class Util {
         }
     }
 
-    public List<Message> readMessagesArray(JsonReader reader) throws IOException {
+    public static List<Message> readMessagesArray(JsonReader reader) throws IOException {
         List<Message> messages = new ArrayList<Message>();
 
         reader.beginArray();
@@ -41,7 +41,7 @@ public class Util {
         return messages;
     }
 
-    public Message readMessage(JsonReader reader) throws IOException {
+    public static Message readMessage(JsonReader reader) throws IOException {
         String text = null;
         User user = null;
 
@@ -61,7 +61,7 @@ public class Util {
         return new Message(text, user);
     }
 
-    public User readUser(JsonReader reader) throws IOException {
+    public static User readUser(JsonReader reader) throws IOException {
         String username = null;
 
         reader.beginObject();

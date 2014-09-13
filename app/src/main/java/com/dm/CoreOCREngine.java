@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class CoreOCREngine {
 
-    public static String TAG = "CoreOCREngine";
+    public static String TAG = android.os.Build.MODEL + " CoreOCREngine";
 
     private Map<Integer, BitSet> samples = new HashMap<Integer, BitSet>();
 

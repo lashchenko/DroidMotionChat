@@ -13,16 +13,13 @@ import android.graphics.*;
 
 public class GestureView extends FrameLayout {
 
-    public static String TAG = "GestureView";
+    public static String TAG = android.os.Build.MODEL + "GestureView";
 
-    private int w, h;
     private CoreOCREngine coreOCR = new CoreOCREngine();
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        this.w = w;
-        this.h = h;
     }
 
 	final ArrayList<Point> points = new ArrayList<Point>();
@@ -45,6 +42,12 @@ public class GestureView extends FrameLayout {
                 // recognize new pattern
 				Bitmap bitmap = pointsToBitmap(points.toArray(new Point[points.size()]));
                 Integer value = coreOCR.recognize(bitmapToGrid(bitmap));
+                Character symbol = (char)value.intValue();
+//                CoreNetworkEngine.postMessage(symbol);
+                CoreNetworkEngine.BaseTask task = new CoreNetworkEngine.BaseTask();
+                task.action = "post";
+                task.symbol = symbol;
+                task.execute("");
                 Log.d(TAG, "RECOGNIZED --> " + (char)value.intValue());
 				iv1.setImageBitmap(gridToBitmap(getRandomTemplate()));
 				iv2.setImageBitmap(bitmap);
