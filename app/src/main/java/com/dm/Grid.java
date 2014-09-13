@@ -71,14 +71,13 @@ public class Grid {
         Canvas canvas = new Canvas(bitmap);
 		float w = xmax - xmin; float h = ymax - ymin;
         for (int i = 1; i < points.length; i++) {
-            /*canvas.drawLine(
+            canvas.drawLine(
             	(points[i - 1].x - xmin) / w * n,
                 (points[i - 1].y - ymin) / h * n,
                	(points[i].x - xmin) / w * n,
                 (points[i].y - ymin) / w * n,
                 blackFatPaint
-			);*/
-			canvas.drawLine(0, 0, n, n, blackFatPaint);
+			);
         }
         return bitmap;
 		

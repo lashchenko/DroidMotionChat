@@ -25,11 +25,12 @@ public class GestureView extends FrameLayout {
         this.h = h;
     }
 
+	final ArrayList<Point> points = new ArrayList<Point>();
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final float x = event.getX();
         final float y = event.getY();
-		final ArrayList<Point> points = new ArrayList<Point>();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 // clean and prepare for collect data for new pattern
