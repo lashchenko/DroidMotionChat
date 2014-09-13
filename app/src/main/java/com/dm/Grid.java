@@ -7,19 +7,22 @@ import java.util.Arrays;
 import static com.dm.ThisApp.*;
 
 public class Grid {
+	
+	private static final int strokeWidth = 4; 
 
-    private static Paint blackTextPaint;
+    private static Paint paint;
     static {
-        blackTextPaint = new Paint();
-        blackTextPaint.setAntiAlias(false);
-        blackTextPaint.setColor(Color.BLACK);
-        blackTextPaint.setTextSize(5);
+        paint = new Paint();
+        paint.setAntiAlias(false);
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(n);
+		paint.setStrokeWidth(strokeWidth);
     }
 
     public static int[] getTemplate(char c) {
         Bitmap bitmap = Bitmap.createBitmap(n, n, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawText("" + c, 0, (int) (n * .875), blackTextPaint);
+        canvas.drawText("" + c, 0, (int) (n * .875), paint);
         return bitmapToGrid(bitmap);
     }
 
@@ -58,17 +61,19 @@ public class Grid {
             else if (point.y > maxPoint.y) maxPoint.y = point.y;
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(n, n, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(
+				n + strokeWidth * 2, n + strokeWidth * 2, 
+				Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
 		float w = maxPoint.x - minPoint.x;
         float h = maxPoint.y - minPoint.y;
         for (int i = 1; i < points.length; i++) {
             canvas.drawLine(
-            	(points[i - 1].x - minPoint.x) / w * n,
-                (points[i - 1].y - minPoint.y) / h * n,
+            	(points[i - 1].x - minPoint.x + strokeWidth) / w * n,
+                (points[i - 1].y - minPoint.y + strokeWidth) / h * n,
                	(points[i].x - minPoint.x) / w * n,
                 (points[i].y - minPoint.y) / w * n,
-                blackTextPaint
+                paint
 			);
         }
         return bitmap;
