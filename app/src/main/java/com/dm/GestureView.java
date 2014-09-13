@@ -8,7 +8,8 @@ import android.view.*;
 import android.content.*;
 
 import static com.dm.ThisApp.*;
-import static com.dm.Letters.*;
+import static com.dm.Grid.*;
+import android.graphics.*;
 
 public class GestureView extends FrameLayout {
 
@@ -24,28 +25,27 @@ public class GestureView extends FrameLayout {
         this.h = h;
     }
 
-    private int[] grid = new int[n * n];
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final float x = event.getX();
         final float y = event.getY();
+		final ArrayList<Point> points = new ArrayList<Point>();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 // clean and prepare for collect data for new pattern
-                Arrays.fill(grid, 0);
+                points.clear();
             }
             case MotionEvent.ACTION_MOVE: {
                 // collect data of new pattern
-                int index = (int) (x / w * n) + (int) (y / h * n) * n;
-                grid[index] = 1;
+                points.add(new Point((int)x, (int)y));
                 break;
             }
             case MotionEvent.ACTION_UP: {
                 // recognize new pattern
-                Integer value = coreOCR.recognize(grid);
+				Bitmap bitmap = pointsToBitmap(points.toArray(new Point[points.size()]));
+                Integer value = coreOCR.recognize(bitmapToGrid(bitmap));
                 Log.d(TAG, "RECOGNIZED --> " + (char)value.intValue());
-				iv.setImageBitmap(gridToBitmap(grid));
+				iv.setImageBitmap(bitmap);
             }
         }
         return true;
