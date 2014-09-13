@@ -25,10 +25,10 @@ public class CoreOCREngine {
         double maxProbability = 0.0;
 
         for (Integer s : samples.keySet()) {
+            char symbol = (char)s.intValue();
+
             int distance = calculateHammingDistance(p, samples.get(s));
             double R = 1000000.0 / (1.0 + distance*distance);
-
-            char symbol = (char)s.intValue();
             Log.d(TAG, symbol + " -> " + R);
 
             if (maxProbability < R) {
