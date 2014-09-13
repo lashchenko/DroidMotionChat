@@ -24,4 +24,21 @@ public class Letters {
 		return grid;
 	}
 	
+	public static Bitmap gridToBitmap(int[] grid) {
+		Bitmap bitmap = Bitmap.createBitmap(n, n, Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+		Paint paint = new Paint();
+		paint.setAntiAlias(false);
+		paint.setColor(0xff000000);
+		paint.setTextSize(n);
+		for (int y = 0; y < n; y++) {
+			for (int x = 0; x < n; x++) {
+				if (grid[y * n + x] == 1)
+					bitmap.setPixel(x, y, 0xff000000);
+				else bitmap.setPixel(x, y, 0xffffffff);
+			}
+		}
+		return bitmap;
+	}
+	
 }

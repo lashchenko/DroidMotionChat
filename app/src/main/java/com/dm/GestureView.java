@@ -8,6 +8,7 @@ import android.view.*;
 import android.content.*;
 
 import static com.dm.ThisApp.*;
+import static com.dm.Letters.*;
 
 public class GestureView extends FrameLayout {
 
@@ -36,7 +37,7 @@ public class GestureView extends FrameLayout {
             }
             case MotionEvent.ACTION_MOVE: {
                 // collect data of new pattern
-                int index = (int)((x / w * n) + (y / h * n) * n);
+                int index = (int) (x / w * n) + (int) (y / h * n) * n;
                 grid[index] = 1;
                 break;
             }
@@ -44,17 +45,18 @@ public class GestureView extends FrameLayout {
                 // recognize new pattern
                 Integer value = coreOCR.recognize(grid);
                 Log.d(TAG, "RECOGNIZED --> " + (char)value.intValue());
-            }
-            default: {
-                // do nothing
-                break;
+				iv.setImageBitmap(gridToBitmap(grid));
             }
         }
         return true;
     }
+	
+	private final ImageView iv;
 
     public GestureView(Context context) {
         super(context);
+		iv = new ImageView(context);
+		addView(iv);
     }
 
 }
