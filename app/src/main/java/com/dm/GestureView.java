@@ -46,18 +46,21 @@ public class GestureView extends FrameLayout {
 				Bitmap bitmap = pointsToBitmap(points.toArray(new Point[points.size()]));
                 Integer value = coreOCR.recognize(bitmapToGrid(bitmap));
                 Log.d(TAG, "RECOGNIZED --> " + (char)value.intValue());
-				iv.setImageBitmap(gridToBitmap(getRandomTemplate()));
+				iv1.setImageBitmap(gridToBitmap(getRandomTemplate()));
+				iv2.setImageBitmap(bitmap);
             }
         }
         return true;
     }
 	
-	private final ImageView iv;
+	private final ImageView iv1, iv2;
 
     public GestureView(Context context) {
         super(context);
-		iv = new ImageView(context);
-		addView(iv);
+		iv1 = new ImageView(context);
+		addView(iv1);
+		iv2 = new ImageView(context);
+		addView(iv2);
     }
 
 }

@@ -11,18 +11,20 @@ public class Grid {
 	
 	private static final int strokeWidth = 2; 
 
-    private static Paint paint;
+    private static Paint blackPaint;
     static {
-        paint = new Paint();
-        paint.setAntiAlias(false);
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(n);
+        blackPaint = new Paint();
+        blackPaint.setAntiAlias(false);
+        blackPaint.setColor(Color.BLACK);
+        blackPaint.setTextSize(n*1.375f);
+		blackPaint.setTextAlign(Paint.Align.CENTER);
+		blackPaint.setStrokeWidth(strokeWidth);
     }
 
     public static int[] getTemplate(char c) {
         Bitmap bitmap = Bitmap.createBitmap(n, n, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawText("" + c, 0, (int) (n * .875), paint);
+        canvas.drawText("" + c, n/2, n, blackPaint);
         return bitmapToGrid(bitmap);
     }
 	
@@ -35,7 +37,7 @@ public class Grid {
         Bitmap bitmap = Bitmap.createBitmap(n, n, Bitmap.Config.ARGB_8888);
         for (int y = 0; y < n; y++) {
             for (int x = 0; x < n; x++) {
-                bitmap.setPixel(x,y, grid[y * n + x] == 1 ? Color.BLACK : Color.WHITE);
+                bitmap.setPixel(x,y, grid[y * n + x] == 1 ? Color.RED : 0);
             }
         }
         return bitmap;
@@ -46,7 +48,7 @@ public class Grid {
         Arrays.fill(grid, 0);
         for (int y = 0; y < n; y++) {
             for (int x = 0; x < n; x++) {
-                if (bitmap.getPixel(x, y) == Color.BLACK)
+                if (bitmap.getPixel(x, y) != 0)
                     grid[y * n + x] = 1;
             }
         }
@@ -71,20 +73,20 @@ public class Grid {
 		float w = maxPoint.x - minPoint.x;
         float h = maxPoint.y - minPoint.y;
 		int nWithoutPadding = n - strokeWidth * 2;
-        for (int i = 0; i < points.length; i++) {
-            /*canvas.drawLine(
-            	(points[i - 1].x - minPoint.x + strokeWidth) / w * nWithoutPadding,
-                (points[i - 1].y - minPoint.y + strokeWidth) / h * nWithoutPadding,
-               	(points[i].x - minPoint.x) / w * n,
-                (points[i].y - minPoint.y) / w * n,
-                paint
-			);*/
-			canvas.drawCircle(
-				(points[i].x - minPoint.x) / w * nWithoutPadding + strokeWidth,
-				(points[i].y - minPoint.y) / w * nWithoutPadding + strokeWidth,
-				strokeWidth,
-				paint
+        for (int i = 1; i < points.length; i++) {
+            canvas.drawLine(
+            	(points[i - 1].x - minPoint.x) / w * nWithoutPadding + strokeWidth,
+                (points[i - 1].y - minPoint.y) / h * nWithoutPadding + strokeWidth,
+               	(points[i].x - minPoint.x) / w * nWithoutPadding + strokeWidth,
+                (points[i].y - minPoint.y) / h * nWithoutPadding + strokeWidth,
+                blackPaint
 			);
+			/*canvas.drawCircle(
+				(points[i].x - minPoint.x) / w * nWithoutPadding + strokeWidth,
+				(points[i].y - minPoint.y) / h * nWithoutPadding + strokeWidth,
+				strokeWidth,
+				blackPaint
+			);*/
         }
         return bitmap;
 		
