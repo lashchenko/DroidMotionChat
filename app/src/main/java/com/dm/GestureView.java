@@ -37,7 +37,7 @@ public class GestureView extends FrameLayout {
             }
             case MotionEvent.ACTION_MOVE: {
                 // collect data of new pattern
-                points.add(new Point((int)x, (int)y));
+                points.add(new Point(x, y));
                 break;
             }
             case MotionEvent.ACTION_UP: {

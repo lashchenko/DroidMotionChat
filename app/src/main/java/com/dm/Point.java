@@ -2,9 +2,9 @@ package com.dm;
 
 public class Point {
 	
-	public final int x, y;
+	public final float x, y;
 	
-	public Point(int x, int y) {
+	public Point(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
