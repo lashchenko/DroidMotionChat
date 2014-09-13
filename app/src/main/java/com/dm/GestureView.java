@@ -46,7 +46,7 @@ public class GestureView extends FrameLayout {
 				Bitmap bitmap = pointsToBitmap(points.toArray(new Point[points.size()]));
                 Integer value = coreOCR.recognize(bitmapToGrid(bitmap));
                 Log.d(TAG, "RECOGNIZED --> " + (char)value.intValue());
-				iv.setImageBitmap(bitmap);
+				iv.setImageBitmap(gridToBitmap(getRandomTemplate()));
             }
         }
         return true;
