@@ -11,10 +11,9 @@ public class CoreOCREngine {
 
     public static String TAG = "CoreOCREngine";
 
-    private Map<Integer, BitSet> samples;
+    private Map<Integer, BitSet> samples = new HashMap<Integer, BitSet>();
 
     public CoreOCREngine() {
-        samples = new HashMap<Integer, BitSet>();
         for (char c='A'; c <= 'Z'; c++ ) {
             samples.put((int) c, Util.convert(Letters.getTemplate(c)));
         }
