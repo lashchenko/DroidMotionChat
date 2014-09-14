@@ -115,7 +115,7 @@ public class GestureView extends FrameLayout {
     public static int[] getTemplate(char c) {
         Bitmap bitmap = Bitmap.createBitmap(MainActivity.N, MainActivity.M, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawText("" + c, MainActivity.N / 2, MainActivity.M/4*3, paint); // M/2 remove ?
+        canvas.drawText("" + c, MainActivity.N / 2, MainActivity.M, paint); // M/2 remove ?
         return bitmapToGrid(bitmap);
     }
 

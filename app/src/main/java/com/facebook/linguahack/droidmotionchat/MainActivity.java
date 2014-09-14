@@ -20,7 +20,6 @@ public class MainActivity extends Activity {
     public static int N = 32;
     public static int M = 32;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
