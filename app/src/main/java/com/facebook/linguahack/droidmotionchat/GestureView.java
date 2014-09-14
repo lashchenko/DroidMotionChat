@@ -34,7 +34,7 @@ public class GestureView extends FrameLayout {
         patternView = new ImageView(context);
         addView(patternView);
 
-        setAlpha(0.5f);
+        setAlpha(0.2f);
     }
 
 //    private final ImageView sampleView;
@@ -86,7 +86,7 @@ public class GestureView extends FrameLayout {
         super.onDraw(canvas);
     }
 
-    private static final int strokeWidth = 2;
+    private static final int strokeWidth = 3;
 
     private static Paint paint;
     static {

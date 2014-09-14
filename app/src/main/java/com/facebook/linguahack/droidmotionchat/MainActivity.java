@@ -28,9 +28,6 @@ public class MainActivity extends Activity {
         N = getResources().getInteger(R.integer.N);
         M = getResources().getInteger(R.integer.M);
 
-        Log.d("", "NNNN " + N);
-        Log.d("", "MMMM " + M);
-
         chatLayout = (LinearLayout) findViewById(R.id.chatLayout);
 
 
