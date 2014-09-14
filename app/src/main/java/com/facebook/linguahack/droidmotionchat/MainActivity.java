@@ -13,6 +13,9 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
+    public static int N = 32;
+    public static int M = 32;
+
     private String userName;
     private String serverUrl;
 
@@ -21,6 +24,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        N = getResources().getInteger(R.integer.N);
+        M = getResources().getInteger(R.integer.M);
+
+        Log.d("", "NNNN " + N);
+        Log.d("", "MMMM " + M);
 
         chatLayout = (LinearLayout) findViewById(R.id.chatLayout);
 
