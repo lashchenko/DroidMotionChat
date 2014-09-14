@@ -28,17 +28,17 @@ public class GestureView extends FrameLayout {
         this.userName = userName;
         this.serverUrl = serverUrl;
 
-        iv1 = new ImageView(context);
-        addView(iv1);
+//        sampleView = new ImageView(context);
+//        addView(sampleView);
 
-        iv2 = new ImageView(context);
-        addView(iv2);
+        patternView = new ImageView(context);
+        addView(patternView);
 
         setAlpha(0.5f);
     }
 
-    private final ImageView iv1;
-    private final ImageView iv2;
+//    private final ImageView sampleView;
+    private final ImageView patternView;
 
     private CoreOCREngine coreOCR = new CoreOCREngine();
 
@@ -73,8 +73,8 @@ public class GestureView extends FrameLayout {
                 }
                 Log.d(TAG, "RECOGNIZED --> " + symbol);
 
-                iv1.setImageBitmap(gridToBitmap(getRandomTemplate()));
-                iv2.setImageBitmap(bitmap);
+//                sampleView.setImageBitmap(gridToBitmap(getRandomTemplate()));
+                patternView.setImageBitmap(bitmap);
                 break;
             }
         }
@@ -95,7 +95,8 @@ public class GestureView extends FrameLayout {
         paint = new Paint();
         paint.setAntiAlias(false);
         //paint.setDither(false);
-        paint.setColor(Color.BLACK);
+//        paint.setColor(Color.BLACK);
+        paint.setColor(Color.RED);
         //paint.setStyle(Paint.Style.FILL_AND_STROKE);
         //paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
@@ -135,7 +136,7 @@ public class GestureView extends FrameLayout {
         Arrays.fill(grid, 0);
         for (int y = 0; y < MainActivity.M; y++) {
             for (int x = 0; x < MainActivity.N; x++) {
-                if (bitmap.getPixel(x, y) != 0)
+                if (bitmap.getPixel(x, y) != 0) // CHECK OUR CONTOUR
                     grid[y * MainActivity.M + x] = 1;
             }
         }
