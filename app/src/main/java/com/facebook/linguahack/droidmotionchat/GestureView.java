@@ -64,10 +64,13 @@ public class GestureView extends FrameLayout {
                 Bitmap bitmap = pointsToBitmap(points.toArray(new Point[points.size()]));
                 Character symbol = coreOCR.recognize(bitmapToGrid(bitmap));
 
-                if (symbol == CoreNetworkEngine.SYMBOL_NEW)
+                if (symbol == CoreOCREngine.SYMBOL_NOT_RECOGNIZED) {
+                    return false;
+                } else if (symbol == CoreNetworkEngine.SYMBOL_NEW) {
                     new CoreNetworkEngine.NetworkTask(userName, serverUrl, CoreNetworkEngine.ACTION_NEW_MESSAGE, symbol).execute("");
-                else
+                } else {
                     new CoreNetworkEngine.NetworkTask(userName, serverUrl, CoreNetworkEngine.ACTION_UPDATE_MESSAGE, symbol).execute("");
+                }
                 Log.d(TAG, "RECOGNIZED --> " + symbol);
 
                 iv1.setImageBitmap(gridToBitmap(getRandomTemplate()));
@@ -171,6 +174,7 @@ public class GestureView extends FrameLayout {
 			k = w;
 		}
         int nWithoutPadding = MainActivity.N - strokeWidth * 2;
+//        int sw = paint.getStrokeWidth();
         for (int i = 1; i < points.length; i++) {
             canvas.drawLine(
                     (points[i - 1].x - minPoint.x + offsetX) / k * nWithoutPadding + strokeWidth,
