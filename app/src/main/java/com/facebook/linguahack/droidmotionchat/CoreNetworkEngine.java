@@ -116,8 +116,7 @@ class NetworkOps {
 
     public List<Message> login() throws Exception {
         String URL = serverUrl + "login/" + userName;
-        Log.d("", "URL: " + URL);
-
+        Log.d("", "URL: " + URL + " with timeout " + httpClient.getParams().getParameter(HttpConnectionParams.CONNECTION_TIMEOUT));
         client.execute(new HttpGet(URL));
         return CoreNetworkEngine.EMPTY_RESPONSE;
     }

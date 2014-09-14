@@ -73,7 +73,6 @@ public class GestureView extends FrameLayout {
                 }
                 Log.d(TAG, "RECOGNIZED --> " + symbol);
 
-
                 iv1.setImageBitmap(gridToBitmap(getRandomTemplate()));
                 iv2.setImageBitmap(bitmap);
                 break;
@@ -95,20 +94,19 @@ public class GestureView extends FrameLayout {
 
         paint = new Paint();
         paint.setAntiAlias(false);
-        paint.setDither(false);
+        //paint.setDither(false);
         paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeJoin(Paint.Join.ROUND);
+        //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        //paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(strokeWidth * 4);
+        paint.setStrokeWidth(strokeWidth * 2);
         paint.setTypeface(tf);
-        paint.setTextSize(MainActivity.N * 1.375f);
+        paint.setTextSize(MainActivity.N * 1.4375f);
         paint.setTextAlign(Paint.Align.CENTER);
 
     }
 
     public static int[] getTemplate(char c) {
-
 
         Bitmap bitmap = Bitmap.createBitmap(MainActivity.N, MainActivity.M, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -166,14 +164,23 @@ public class GestureView extends FrameLayout {
         Canvas canvas = new Canvas(bitmap);
         float w = maxPoint.x - minPoint.x;
         float h = maxPoint.y - minPoint.y;
+		int offsetX = 0; int offsetY = 0;
+		float k = 0;
+		if (h > w) {
+			offsetX = (int) ((h - w) / 2);
+			k = h;
+		} else {
+			offsetY = (int) ((w - h) / 2);
+			k = w;
+		}
         int nWithoutPadding = MainActivity.N - strokeWidth * 2;
 //        int sw = paint.getStrokeWidth();
         for (int i = 1; i < points.length; i++) {
             canvas.drawLine(
-                    (points[i - 1].x - minPoint.x) / w * nWithoutPadding + strokeWidth,
-                    (points[i - 1].y - minPoint.y) / h * nWithoutPadding + strokeWidth,
-                    (points[i].x - minPoint.x) / w * nWithoutPadding + strokeWidth,
-                    (points[i].y - minPoint.y) / h * nWithoutPadding + strokeWidth,
+                    (points[i - 1].x - minPoint.x + offsetX) / k * nWithoutPadding + strokeWidth,
+                    (points[i - 1].y - minPoint.y + offsetY) / k * nWithoutPadding + strokeWidth,
+                    (points[i].x - minPoint.x + offsetX) / k * nWithoutPadding + strokeWidth,
+                    (points[i].y - minPoint.y + offsetY) / k * nWithoutPadding + strokeWidth,
                     paint
             );
         }
