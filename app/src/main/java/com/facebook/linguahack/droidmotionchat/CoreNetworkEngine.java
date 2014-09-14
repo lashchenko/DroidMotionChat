@@ -122,7 +122,7 @@ class NetworkOps {
     }
 
     public List<Message> newMessage(Character symbol) throws Exception {
-        String URL = serverUrl + "put/" + userName + "/" + symbol;
+        String URL = serverUrl + "put/" + userName + "/" + map(symbol);
         Log.d("", "URL: " + URL);
 
         client.execute(new HttpGet(URL));
@@ -130,11 +130,15 @@ class NetworkOps {
     }
 
     public List<Message> updateMessage(Character symbol) throws Exception {
-        String URL = serverUrl + "update/" + userName + "/" + symbol;
+        String URL = serverUrl + "update/" + userName + "/" + map(symbol);
         Log.d("", "URL: " + URL);
 
         client.execute(new HttpGet(URL));
         return CoreNetworkEngine.EMPTY_RESPONSE;
+    }
+
+    private String map(Character symbol) {
+        return (symbol == ' ') ? "%20" : "" + symbol;
     }
 
     public List<Message> receiveMessages() throws Exception {

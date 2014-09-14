@@ -22,6 +22,7 @@ public class CoreOCREngine {
 //        samples.put('√', Util.convert(GestureView.getTemplate('√')));
 //        samples.put('∆', Util.convert(GestureView.getTemplate('∆')));
 //        samples.put('λ', Util.convert(GestureView.getTemplate('λ')));
+        samples.put( ' ', Util.convert(GestureView.getTemplate('/')));
     }
 
     public Character recognize(int[] pattern) {
