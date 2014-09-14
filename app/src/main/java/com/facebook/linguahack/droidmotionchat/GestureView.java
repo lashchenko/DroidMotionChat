@@ -19,8 +19,13 @@ public class GestureView extends FrameLayout {
 
     public static String TAG = android.os.Build.MODEL + " GestureView";
 
-    public GestureView(Context context) {
+    private String userName;
+    private String serverUrl;
+
+    public GestureView(String userName, String serverUrl, Context context) {
         super(context);
+        this.userName = userName;
+        this.serverUrl = serverUrl;
 
         iv1 = new ImageView(context);
         addView(iv1);
@@ -59,9 +64,9 @@ public class GestureView extends FrameLayout {
                 Character symbol = coreOCR.recognize(bitmapToGrid(bitmap));
 
                 if (symbol == CoreNetworkEngine.SYMBOL_NEW)
-                    new CoreNetworkEngine.NetworkTask(CoreNetworkEngine.ACTION_NEW_MESSAGE, symbol).execute("");
+                    new CoreNetworkEngine.NetworkTask(userName, serverUrl, CoreNetworkEngine.ACTION_NEW_MESSAGE, symbol).execute("");
                 else
-                    new CoreNetworkEngine.NetworkTask(CoreNetworkEngine.ACTION_UPDATE_MESSAGE, symbol).execute("");
+                    new CoreNetworkEngine.NetworkTask(userName, serverUrl, CoreNetworkEngine.ACTION_UPDATE_MESSAGE, symbol).execute("");
                 Log.d(TAG, "RECOGNIZED --> " + symbol);
 
 
