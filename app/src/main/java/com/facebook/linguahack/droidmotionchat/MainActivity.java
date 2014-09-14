@@ -1,6 +1,7 @@
 package com.facebook.linguahack.droidmotionchat;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;

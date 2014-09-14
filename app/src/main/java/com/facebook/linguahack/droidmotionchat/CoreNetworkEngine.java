@@ -33,7 +33,7 @@ public class CoreNetworkEngine {
     public static final int ACTION_UPDATE_MESSAGE = 2;
     public static final int ACTION_RECEIVE_MESSAGES = 3;
 
-    public static final char SYMBOL_NEW = '*';
+    public static final char SYMBOL_NEW = '~';
 
     static final List<Message> EMPTY_RESPONSE = new LinkedList<Message>();
 

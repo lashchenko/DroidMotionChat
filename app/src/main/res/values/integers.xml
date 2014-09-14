@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="N">64</integer>
-    <integer name="M">64</integer>
+    <integer name="N">30</integer>
+    <integer name="M">30</integer>
 </resources>
