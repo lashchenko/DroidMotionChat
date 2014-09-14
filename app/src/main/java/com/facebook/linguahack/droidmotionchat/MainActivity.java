@@ -13,8 +13,8 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    public static int N = 32;
-    public static int M = 32;
+    public static int N = 64;
+    public static int M = 64;
 
     private String userName;
     private String serverUrl;

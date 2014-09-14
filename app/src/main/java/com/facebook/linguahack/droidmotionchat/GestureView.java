@@ -103,7 +103,8 @@ public class GestureView extends FrameLayout {
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(strokeWidth * 2);
+        paint.setStrokeWidth(strokeWidth * 6);
+//        paint.setStrokeWidth(strokeWidth);
         paint.setTextSize(MainActivity.N * 1.375f);
 //        paint.setTextSize(MainActivity.M);
 
