@@ -8,6 +8,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -15,11 +18,15 @@ import java.util.List;
 
 public class CoreNetworkEngine {
 
+    private String userName;
+    private String serverUrl;
+
+    public CoreNetworkEngine(String userName, String serverUrl) {
+        this.userName = userName;
+        this.serverUrl = serverUrl;
+    }
+
     private static final String TAG = "CoreNetworkEngine";
-    // FIXME configurable
-//    private static final String BASE_URL = "http://192.168.10.91:9000/";
-    private static final String BASE_URL = "http://192.168.0.101:9000/";
-    private static final String USERNAME = android.os.Build.MODEL.replaceAll("[\\W\\s]+", "");
 
     public static final int ACTION_LOGIN = 0;
     public static final int ACTION_NEW_MESSAGE = 1;
@@ -28,27 +35,24 @@ public class CoreNetworkEngine {
 
     public static final char SYMBOL_NEW = '*';
 
-    private static final List<Message> EMPTY_RESPONSE = new LinkedList<Message>();
-
-    HttpClient client = new DefaultHttpClient();
-
+    static final List<Message> EMPTY_RESPONSE = new LinkedList<Message>();
 
     public static class NetworkTask extends AsyncTask<String, Void, List<Message>> {
 
-        public NetworkTask(Integer action) {
-            this(action, ' ');
-        }
-
-        public NetworkTask(Integer action, Character symbol) {
-            this.action = action;
-            this.symbol = symbol;
-        }
-
         private final Integer action;
         private final Character symbol;
+        private NetworkOps cne;
 
-        private CoreNetworkEngine cne = new CoreNetworkEngine();
 
+        public NetworkTask(String userName, String serverUrl, Integer action) {
+            this(userName, serverUrl, action, ' ');
+        }
+
+        public NetworkTask(String userName, String serverUrl, Integer action, Character symbol) {
+            this.action = action;
+            this.symbol = symbol;
+            cne = new NetworkOps(userName, serverUrl);
+        }
 
         protected void onProgressUpdate(Void... progress) {
             /* not implemented */
@@ -88,33 +92,54 @@ public class CoreNetworkEngine {
 //            }
         }
     }
+}
+
+class NetworkOps {
+
+    private String userName;
+    private String serverUrl;
+    private HttpClient client = new DefaultHttpClient();
+
+    private HttpParams httpParameters = new BasicHttpParams();
+    private int timeoutConnection = 1000;
+    private int timeoutSocket = 1000;
+
+    private DefaultHttpClient httpClient;
+
+    public NetworkOps(String userName, String serverUrl) {
+        this.userName = userName;
+        this.serverUrl = serverUrl;
+        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+        httpClient = new DefaultHttpClient(httpParameters);
+    }
 
     public List<Message> login() throws Exception {
-        String URL = BASE_URL + "login/" + USERNAME;
+        String URL = serverUrl + "login/" + userName;
         Log.d("", "URL: " + URL);
 
         client.execute(new HttpGet(URL));
-        return EMPTY_RESPONSE;
+        return CoreNetworkEngine.EMPTY_RESPONSE;
     }
 
     public List<Message> newMessage(Character symbol) throws Exception {
-        String URL = BASE_URL + "put/" + USERNAME + "/" + symbol;
+        String URL = serverUrl + "put/" + userName + "/" + symbol;
         Log.d("", "URL: " + URL);
 
         client.execute(new HttpGet(URL));
-        return EMPTY_RESPONSE;
+        return CoreNetworkEngine.EMPTY_RESPONSE;
     }
 
     public List<Message> updateMessage(Character symbol) throws Exception {
-        String URL = BASE_URL + "update/" + USERNAME + "/" + symbol;
+        String URL = serverUrl + "update/" + userName + "/" + symbol;
         Log.d("", "URL: " + URL);
 
         client.execute(new HttpGet(URL));
-        return EMPTY_RESPONSE;
+        return CoreNetworkEngine.EMPTY_RESPONSE;
     }
 
     public List<Message> receiveMessages() throws Exception {
-        String URL = BASE_URL + "messages";
+        String URL = serverUrl + "messages";
         Log.d("", "URL: " + URL);
 
         List<Message> messages;
@@ -125,5 +150,4 @@ public class CoreNetworkEngine {
 
         return messages;
     }
-
 }
