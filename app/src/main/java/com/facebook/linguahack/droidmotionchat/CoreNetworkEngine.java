@@ -18,7 +18,8 @@ public class CoreNetworkEngine {
     private static final String TAG = "CoreNetworkEngine";
     // FIXME configurable
 //    private static final String BASE_URL = "http://192.168.10.91:9000/";
-    private static final String BASE_URL = "http://192.168.0.101:9000/";
+//    private static final String BASE_URL = "http://192.168.0.101:9000/";
+    private static final String BASE_URL = "http://192.168.10.146:9000/";
     private static final String USERNAME = android.os.Build.MODEL.replaceAll("[\\W\\s]+", "");
 
     public static final int ACTION_LOGIN = 0;
