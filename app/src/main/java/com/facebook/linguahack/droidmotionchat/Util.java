@@ -1,8 +1,7 @@
-package com.dm;
+package com.facebook.linguahack.droidmotionchat;
 
 
 import android.util.JsonReader;
-import android.util.JsonToken;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,48 +32,39 @@ public class Util {
     public static List<Message> readMessagesArray(JsonReader reader) throws IOException {
         List<Message> messages = new ArrayList<Message>();
 
-        reader.beginArray();
+        reader.beginObject();
         while (reader.hasNext()) {
-            messages.add(readMessage(reader));
+            String name = reader.nextName();
+            if (name.equals("messages")) {
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    messages.add(readMessage(reader));
+                }
+                reader.endArray();
+            } else {
+                reader.skipValue();
+            }
         }
-        reader.endArray();
+        reader.endObject();
         return messages;
     }
 
     public static Message readMessage(JsonReader reader) throws IOException {
         String text = null;
-        User user = null;
+        String user = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("user")) {
-                user = readUser(reader);
+                user = reader.nextString();
             } else if (name.equals("text")) {
                 text = reader.nextString();
             } else {
-                reader.skipValue();
-                throw new RuntimeException("WTF?");
+                reader.skipValue(); // ignore messageId
             }
         }
         reader.endObject();
         return new Message(text, user);
-    }
-
-    public static User readUser(JsonReader reader) throws IOException {
-        String username = null;
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals("name")) {
-                username = reader.nextString();
-            } else {
-                reader.skipValue();
-            }
-        }
-
-        reader.endObject();
-        return new User(username);
     }
 }

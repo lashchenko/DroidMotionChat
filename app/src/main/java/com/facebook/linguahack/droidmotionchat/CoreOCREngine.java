@@ -1,4 +1,4 @@
-package com.dm;
+package com.facebook.linguahack.droidmotionchat;
 
 
 import android.util.Log;
@@ -11,23 +11,26 @@ public class CoreOCREngine {
 
     public static String TAG = android.os.Build.MODEL + " CoreOCREngine";
 
-    private Map<Integer, BitSet> samples = new HashMap<Integer, BitSet>();
+    private Map<Character, BitSet> samples = new HashMap<Character, BitSet>();
 
     public CoreOCREngine() {
-        for (char c='A'; c <= 'Z'; c++ ) {
-            samples.put((int) c, Util.convert(Grid.getTemplate(c)));
+        for (char symbol='A'; symbol <= 'Z'; ++symbol ) {
+//        for (char symbol='a'; symbol <= 'z'; ++symbol ) {
+            samples.put(symbol, Util.convert(GestureView.getTemplate(symbol)));
         }
+        samples.put(CoreNetworkEngine.SYMBOL_NEW, Util.convert(GestureView.getTemplate(CoreNetworkEngine.SYMBOL_NEW)));
+//        samples.put('√', Util.convert(GestureView.getTemplate('√')));
+//        samples.put('∆', Util.convert(GestureView.getTemplate('∆')));
+//        samples.put('λ', Util.convert(GestureView.getTemplate('λ')));
     }
 
-    public Integer recognize(int[] pattern) {
+    public Character recognize(int[] pattern) {
         BitSet p = Util.convert(pattern);
-        int matchedSymbol = 'A';
+        Character matchedSymbol = 'A';
         double maxProbability = 0.0;
 
-        for (Integer s : samples.keySet()) {
-            char symbol = (char)s.intValue();
-
-            int distance = calculateHammingDistance(p, samples.get(s));
+        for (Character symbol : samples.keySet()) {
+            int distance = calculateHammingDistance(p, samples.get(symbol));
             double R = 1000000.0 / (1.0 + distance*distance);
             Log.d(TAG, symbol + " -> " + R);
 
