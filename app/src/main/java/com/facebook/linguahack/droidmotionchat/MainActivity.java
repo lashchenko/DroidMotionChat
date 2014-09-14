@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
                 new GestureView.LayoutParams(GestureView.LayoutParams.FILL_PARENT, GestureView.LayoutParams.FILL_PARENT)
         );
 
-        new CoreNetworkEngine.NetworkTask(userName, serverUrl, CoreNetworkEngine.ACTION_LOGIN).execute("");
+//        new CoreNetworkEngine.NetworkTask(userName, serverUrl, CoreNetworkEngine.ACTION_LOGIN).execute("");
         handler.postDelayed(runnable, 100);
 
     }
@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 
                     for (int i = result.size() - 1; i >= 0; --i) {
                         Message m = result.get(i);
-                        Log.d("", m.toString());
+//                        Log.d("", m.toString());
 
                         final TextView textView = new TextView(MainActivity.this);
                         textView.setTextSize(16f);
