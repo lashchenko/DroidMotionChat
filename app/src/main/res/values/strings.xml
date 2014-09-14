@@ -3,7 +3,5 @@
 
     <string name="app_name">DroidMotionChat</string>
     <string name="action_settings">Settings</string>
-    <integer name="N">70</integer>
-    <integer name="M">90</integer>
 
 </resources>

@@ -99,15 +99,23 @@ public class GestureView extends FrameLayout {
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(strokeWidth * 2);
-//        paint.setTextSize(n * 1.375f);
-        paint.setTextSize(ThisApp.n);
+        paint.setTextSize(MainActivity.N * 1.375f);
+//        paint.setTextSize(MainActivity.M);
+
+//        int size = 0;
+//        do {
+//            paint.setTextSize(++size);
+//        } while(paint.measureText("A") < MainActivity.M);
+//        Log.d("", "SISISISISISIS" + size);
+//        paint.setTextSize(size);
+
         paint.setTextAlign(Paint.Align.CENTER);
     }
 
     public static int[] getTemplate(char c) {
-        Bitmap bitmap = Bitmap.createBitmap(ThisApp.n, ThisApp.n, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(MainActivity.N, MainActivity.M, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawText("" + c, ThisApp.n / 2, ThisApp.n, paint);
+        canvas.drawText("" + c, MainActivity.N / 2, MainActivity.M/4*3, paint); // M/2 remove ?
         return bitmapToGrid(bitmap);
     }
 
@@ -118,22 +126,22 @@ public class GestureView extends FrameLayout {
     }
 
     public static Bitmap gridToBitmap(int[] grid) {
-        Bitmap bitmap = Bitmap.createBitmap(ThisApp.n, ThisApp.n, Bitmap.Config.ARGB_8888);
-        for (int y = 0; y < ThisApp.n; y++) {
-            for (int x = 0; x < ThisApp.n; x++) {
-                bitmap.setPixel(x, y, grid[y * ThisApp.n + x] == 1 ? Color.RED : 0);
+        Bitmap bitmap = Bitmap.createBitmap(MainActivity.N, MainActivity.M, Bitmap.Config.ARGB_8888);
+        for (int y = 0; y < MainActivity.M; y++) {
+            for (int x = 0; x < MainActivity.N; x++) {
+                bitmap.setPixel(x, y, grid[y * MainActivity.M + x] == 1 ? Color.RED : 0);
             }
         }
         return bitmap;
     }
 
     public static int[] bitmapToGrid(Bitmap bitmap) {
-        int[] grid = new int[ThisApp.n * ThisApp.n];
+        int[] grid = new int[MainActivity.N * MainActivity.M];
         Arrays.fill(grid, 0);
-        for (int y = 0; y < ThisApp.n; y++) {
-            for (int x = 0; x < ThisApp.n; x++) {
+        for (int y = 0; y < MainActivity.M; y++) {
+            for (int x = 0; x < MainActivity.N; x++) {
                 if (bitmap.getPixel(x, y) != 0)
-                    grid[y * ThisApp.n + x] = 1;
+                    grid[y * MainActivity.M + x] = 1;
             }
         }
         return grid;
@@ -141,7 +149,7 @@ public class GestureView extends FrameLayout {
 
     public static Bitmap pointsToBitmap(Point[] points) {
 
-        Bitmap bitmap = Bitmap.createBitmap(ThisApp.n, ThisApp.n, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(MainActivity.N, MainActivity.M, Bitmap.Config.ARGB_8888);
         if (points.length == 0) {
             return  bitmap;
         }
@@ -161,7 +169,7 @@ public class GestureView extends FrameLayout {
         Canvas canvas = new Canvas(bitmap);
         float w = maxPoint.x - minPoint.x;
         float h = maxPoint.y - minPoint.y;
-        int nWithoutPadding = ThisApp.n - strokeWidth * 2;
+        int nWithoutPadding = MainActivity.N - strokeWidth * 2;
         for (int i = 1; i < points.length; i++) {
             canvas.drawLine(
                     (points[i - 1].x - minPoint.x) / w * nWithoutPadding + strokeWidth,
