@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -86,15 +87,8 @@ public class GestureView extends FrameLayout {
     private static final int strokeWidth = 2;
 
     private static Paint paint;
-
-    //    private static Paint blackPaint;
     static {
-//        blackPaint = new Paint();
-//        blackPaint.setAntiAlias(false);
-//        blackPaint.setColor(Color.BLACK);
-//        blackPaint.setTextSize(n*1.375f);
-//        blackPaint.setTextAlign(Paint.Align.CENTER);
-//        blackPaint.setStrokeWidth(strokeWidth);
+        Typeface tf = Typeface.create("Verdana",Typeface.NORMAL);
 
         paint = new Paint();
         paint.setAntiAlias(false);
@@ -103,25 +97,19 @@ public class GestureView extends FrameLayout {
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(strokeWidth * 6);
-//        paint.setStrokeWidth(strokeWidth);
+        paint.setStrokeWidth(strokeWidth * 4);
+        paint.setTypeface(tf);
         paint.setTextSize(MainActivity.N * 1.375f);
-//        paint.setTextSize(MainActivity.M);
-
-//        int size = 0;
-//        do {
-//            paint.setTextSize(++size);
-//        } while(paint.measureText("A") < MainActivity.M);
-//        Log.d("", "SISISISISISIS" + size);
-//        paint.setTextSize(size);
-
         paint.setTextAlign(Paint.Align.CENTER);
+
     }
 
     public static int[] getTemplate(char c) {
+
+
         Bitmap bitmap = Bitmap.createBitmap(MainActivity.N, MainActivity.M, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawText("" + c, MainActivity.N / 2, MainActivity.M, paint); // M/2 remove ?
+        canvas.drawText("" + c, MainActivity.N / 2, MainActivity.M, paint);
         return bitmapToGrid(bitmap);
     }
 
