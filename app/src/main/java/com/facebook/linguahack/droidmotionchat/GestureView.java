@@ -91,6 +91,7 @@ public class GestureView extends FrameLayout {
     private static Paint paint;
     static {
         Typeface tf = Typeface.create("Verdana",Typeface.NORMAL);
+//        Typeface tf = Typeface.create("Symbol",Typeface.NORMAL);
 
         paint = new Paint();
         paint.setAntiAlias(false);
@@ -104,10 +105,35 @@ public class GestureView extends FrameLayout {
         paint.setTypeface(tf);
         paint.setTextSize(MainActivity.N * 1.4375f);
         paint.setTextAlign(Paint.Align.CENTER);
+    }
 
+    private static Paint paint2;
+    static {
+        Typeface tf = Typeface.create("Symbol", Typeface.NORMAL);
+
+        paint2 = new Paint();
+        paint2.setAntiAlias(false);
+        //paint.setDither(false);
+//        paint.setColor(Color.BLACK);
+        paint2.setColor(Color.RED);
+        //paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        //paint.setStrokeJoin(Paint.Join.ROUND);
+        paint2.setStrokeCap(Paint.Cap.ROUND);
+        paint2.setStrokeWidth(strokeWidth * 2);
+        paint2.setTypeface(tf);
+        paint2.setTextSize(MainActivity.N * 1.4375f);
+        paint2.setTextAlign(Paint.Align.CENTER);
+    }
+
+    public static int[] getTemplate2(char c) {
+        return getTemplate(c, paint2);
     }
 
     public static int[] getTemplate(char c) {
+        return getTemplate(c, paint);
+    }
+
+    public static int[] getTemplate(char c, Paint paint) {
 
         Bitmap bitmap = Bitmap.createBitmap(MainActivity.N, MainActivity.M, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
