@@ -41,8 +41,7 @@ public class MainActivity extends Activity {
         );
 
 //        new CoreNetworkEngine.NetworkTask(userName, serverUrl, CoreNetworkEngine.ACTION_LOGIN).execute("");
-        handler.postDelayed(runnable, 100);
-
+        handler.postDelayed(runnable, 1000);
     }
 
     private Handler handler = new Handler();

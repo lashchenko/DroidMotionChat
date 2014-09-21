@@ -22,6 +22,7 @@ public class Util {
 
     public static List<Message> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        reader.setLenient(true);
         try {
             return readMessagesArray(reader);
         } finally {

@@ -61,8 +61,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private View mLoginFormView;
 
     private final static String defaultUser = Build.MODEL.replaceAll("[\\W\\s]+", "");
-    private final static String defaultUrl = "http://192.168.10.91:9000/";
-    //    private static final String BASE_URL = "http://192.168.0.101:9000/";
+//    private final static String defaultUrl = "http://localhost:8051/";
+    private final static String defaultUrl = "http://motion-rgbapp.rhcloud.com:80/";
+//    private final static String defaultUrl = "http://192.168.10.91:9000/";
+//    private static final String BASE_URL = "http://192.168.0.101:9000/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +101,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 		
-		// goMainActivity();/////////////////////////////////////////////////////////////
+		goMainActivity(); /* IF ACTIVE THEN LOGIN TO DEFAULT SERVER IMMEDIATELY */
 		
     }
 
